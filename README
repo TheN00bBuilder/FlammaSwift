@@ -1,0 +1,52 @@
+Hi everyone! This is my first Github submission, and it is for FlammaSwift.
+
+FlammaSwift is a neat little tool to detect a fire anywhere, really! It is a Raspberry Pi, a few sensors, and some jumper wires to safeguard your home. 
+
+-------------------------------------SETUP--------------------------------------
+
+1. Buy a Raspberry Pi Zero W WITH headers, as well as...
+
+	-4 pin LM393 IR Flame Sensor ($1-5).
+	-PCF8591 Analog to Digital convertor ($5).
+	-At least 10 female to female jumpers.
+	-A 3-pin active buzzer (50 cents to a dollar).
+	All of this can be picked up from Adafruit for under $30. 
+	But if you are starting from scratch, you will need additionally...
+	-4GB microSD card.
+	-microUSB cable plus AT LEAST a 1 amp USB power supply.
+	I also suggest buying a case, but that isn't needed.
+2. Install the Raspbian Lite image on the SD card, but in the root folder, place a blank text file named "ssh". 
+	2.5. Download Angry's IP Scanner to find the Pi on your network after it's been plugged in and is running.
+		2.75. SSH into it using PuTTY or your favorite SSH client.
+3. Prep your Pi by running...
+	sudo apt-get update && sudo apt-get install git
+	sudo raspi-config
+		go to 5 Interfacing Options, go to P4 SPI, and click enable.
+		type "sudo reboot now" into console.
+4. Git into this repository (git clone (url to ".git" file)).
+5. Time to configure this program!
+	-Open the "FlammaSwitf" program using nano if you're a Linux n00b (nano FlammaSwift) or Vim if you are a God.
+	-If you are NOT using a Gmail or Hotmail account to send your alerts, you will need to add their SMTP information to the file (Google what that is if you don't know it). 
+	 -On lines 39-41, I left a blank template for the SMTP info. Replace all the foos and bars with the information you got from Google.
+	Once this is all done, type "sudo shutdown now" and unplug your Pi.
+
+6. Wiring time! Don't worry if you eff it up, Pis are generally forgiving.
+	-The Sunfounder graph that I have works great. Using both that and the pin header file that I am including to wire up everything to each other correctly.
+
+7. Let's do a bit of testing!! 
+	-To run the program for the first time, type "chmod +x FlammaSwift" to give the file permissions to do what it needs to do. The usage is "sudo FlammaSwift -e (your email) -p (password to your email) -u (destination email if you want it sent to one that isn't the one you logged into.)
+
+	-If you get 1 beep (shows correct initialization) followed by 3 digits printed up on screen, or 2 beeps and "FIRE FIRE FIRE!" followed by a long tone and a pleasant message about SMTP, congrats! You got it all wired right, now let's get it fine-tuned.
+
+	-You see that value (typically 3 digit) on the screen? Awesome. I want you to go back into the FlammaSwift program and on line 66, change the 3 digit number to what you just got out of the program. This is your minimum threshold of not-fireness, and it is important to set this correctly.
+
+I am working on making it run on boot, but until now... please do "sudo Flammaswift" thingy. I have a service file, but argparse requires human input... darn. Just SSH into it and start it whenever you print. 
+
+Awesome! So now whenever you plug the Pi in, it will run this. 
+
+AAAAAAAND... you're done! Congratulations! I hope you never have to use this program (or maybe you do, if you WANT to light something on fire) but if you do, I am glad I saved your 3D printer, LiPO battery, or cooking.
+
+SO... in conclusion, follow this guide closely and you will be okay. If you have any issues with anything, PLEASE open an issue! I am happy and here to help... when I'm either on coffee or not sleep-deprived (college life yo.)
+
+
+DISCLAIMER --- I AM NOT LIABLE FOR ANY MISFUNCTION OF THIS PROGRAM OR HARDWARE, EITHER DUE TO BAD INSTRUCTION, BAD CODING, OR ANYTHING ELSE. BY USING THIS PROGRAM, YOU ACCEPT THOSE TERMS. 
